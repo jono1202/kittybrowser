@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { object } from 'prop-types';
-// import Web3 from 'web3';
+import Web3 from 'web3';
 // import KittyCoreABI from 'contracts/KittyCoreABI.json';
-// import { CONTRACT_NAME, CONTRACT_ADDRESS } from '../config';
+import { CONTRACT_NAME, CONTRACT_ADDRESS } from '../config';
 
 class Browser extends Component {
   
