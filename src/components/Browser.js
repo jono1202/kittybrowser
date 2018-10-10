@@ -18,12 +18,12 @@ class Browser extends Component {
     const web3 = new Web3(window['web3'].currentProvider);
 
     // Initialize the contract instance
-
     const kittyContract = new web3.eth.Contract(
       KittyCoreABI, // import the contracts's ABI and use it here
       CONTRACT_ADDRESS,
     );
- 
+
+    // Add contract to drizzle
     this.context.drizzle.addContract({
       contractName: CONTRACT_NAME,
       web3Contract: kittyContract,
@@ -33,7 +33,9 @@ class Browser extends Component {
 
   cacheGetKitty = (kittyId) => {
     let state = this.context.drizzle.store.getState();
+    // check if contract exists
     if(state.drizzleStatus.initialized && this.context.drizzle.contracts[CONTRACT_NAME]) {
+      // cache get kitty call
       const dataKey = this.context.drizzle.contracts[CONTRACT_NAME].methods.getKitty.cacheCall(kittyId)
       this.setState({
         dataKey
@@ -45,10 +47,12 @@ class Browser extends Component {
     e.preventDefault()
     // Handling negative or zero id
     if (this.state.kittyId <= 0) {
+      // sets error message
       this.setState({
         error: 'Please enter a valid id'
       })
     } else { 
+      // resets error message
       this.setState({
         error: null
       })
@@ -63,8 +67,9 @@ class Browser extends Component {
   }
 
   handleRandomSubmit = (e) => {
+    // generates random id for caching call
     e.preventDefault()
-    let randomId = Math.floor(Math.random() * 1083984) + 1
+    let randomId = Math.floor(Math.random() * 1083984) + 1 // 1083984 found by manually testing
     this.cacheGetKitty(randomId)
   }
  
@@ -87,6 +92,7 @@ class Browser extends Component {
           )
       }
     } else if (kittyInfo && kittyInfo[dataKey] && kittyInfo[dataKey].value) {
+      // converts seconds to month day, year format
       let date = new Date(1970, 0, 1)
       date.setSeconds(parseInt(kittyInfo[dataKey].value.birthTime, 10))  
       let options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -127,11 +133,11 @@ class Browser extends Component {
         <form onSubmit={this.handleRandomSubmit}>
           <button>FIND RANDOM KITTY</button>
         </form>
-        
+
         {
-        this.state.error ? 
-        <div className="error">{this.state.error}</div> : 
-        this.createDisplayInfo(this.props.kittyInfo, this.state.dataKey)
+          this.state.error ? 
+          <div className="error">{this.state.error}</div> : 
+          this.createDisplayInfo(this.props.kittyInfo, this.state.dataKey)
         }
 
       </div>
