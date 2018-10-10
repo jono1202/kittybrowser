@@ -91,7 +91,7 @@ class Browser extends Component {
           <div>{kittyInfo[dataKey].value.generation}</div>
           <label htmlFor="Birth Time">Birth Time: </label>
           <div>{dateString}</div>
-          <img src={
+          <img className="kitty-image" src={
             'https://storage.googleapis.com/ck-kitty-image/0x06012c8cf97bead5deae237070f9587f8e7a266d/' 
             + parseInt(kittyInfo[dataKey].args[0], 10)
             + '.svg'
@@ -112,18 +112,14 @@ class Browser extends Component {
           Kitty Browser
         </h1>
 
-        <div className="">
-          <form autoComplete="off" onSubmit={this.handleSubmit}>
-            <label htmlFor="inputField">Kitty ID: </label><br/>
-            <input id="inputField" type="text" onChange={this.handleInput}/>
-            <button>FIND KITTY</button>
-          </form>
-        </div>
-        <div className="row">
-          <form onSubmit={this.handleRandomSubmit}>
-            <button>FIND RANDOM KITTY</button>
-          </form>
-        </div>
+        <form autoComplete="off" className="id-form" onSubmit={this.handleSubmit}>
+          <label htmlFor="inputField">Kitty ID: </label><br/>
+          <input className="id-input" id="inputField" type="text" onChange={this.handleInput}/>
+          <button>FIND KITTY</button>
+        </form>
+        <form onSubmit={this.handleRandomSubmit}>
+          <button>FIND RANDOM KITTY</button>
+        </form>
         
         {displayInfo}
 
