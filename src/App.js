@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     const drizzleOptions = {
       contracts: []
-    };
+    }; 
 
     return (
       <DrizzleProvider options={drizzleOptions}>
