@@ -43,7 +43,17 @@ class Browser extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.cacheGetKitty(this.state.kittyId)
+    // Handling negative or zero id
+    if (this.state.kittyId <= 0) {
+      this.setState({
+        error: 'Please enter a valid id'
+      })
+    } else { 
+      this.setState({
+        error: null
+      })
+      this.cacheGetKitty(this.state.kittyId)
+    }
   }
 
   handleInput = (e) => {
@@ -54,7 +64,7 @@ class Browser extends Component {
 
   handleRandomSubmit = (e) => {
     e.preventDefault()
-    let randomId = Math.floor(Math.random() * 1083985)
+    let randomId = Math.floor(Math.random() * 1083984) + 1
     this.cacheGetKitty(randomId)
   }
  
@@ -75,7 +85,6 @@ class Browser extends Component {
               Unknown error occured, );.
             </div>
           )
-
       }
     } else if (kittyInfo && kittyInfo[dataKey] && kittyInfo[dataKey].value) {
       let date = new Date(1970, 0, 1)
@@ -95,7 +104,7 @@ class Browser extends Component {
             'https://storage.googleapis.com/ck-kitty-image/0x06012c8cf97bead5deae237070f9587f8e7a266d/' 
             + parseInt(kittyInfo[dataKey].args[0], 10)
             + '.svg'
-            } />
+            } alt="Kitty" />
         </div>
       )
     } else {
@@ -104,8 +113,6 @@ class Browser extends Component {
   }
 
   render() {
-    let displayInfo = this.createDisplayInfo(this.props.kittyInfo, this.state.dataKey)
-
     return (
       <div className="browser">
         <h1>
@@ -114,14 +121,18 @@ class Browser extends Component {
 
         <form autoComplete="off" className="id-form" onSubmit={this.handleSubmit}>
           <label htmlFor="inputField">Kitty ID: </label><br/>
-          <input className="id-input" id="inputField" type="text" onChange={this.handleInput}/>
+          <input className="id-input" id="inputField" type="number" onChange={this.handleInput}/>
           <button>FIND KITTY</button>
         </form>
         <form onSubmit={this.handleRandomSubmit}>
           <button>FIND RANDOM KITTY</button>
         </form>
         
-        {displayInfo}
+        {
+        this.state.error ? 
+        <div className="error">{this.state.error}</div> : 
+        this.createDisplayInfo(this.props.kittyInfo, this.state.dataKey)
+        }
 
       </div>
     );

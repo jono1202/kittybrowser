@@ -38,11 +38,15 @@ label {
 .warning {
   color: #666;
   padding: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .error {
   color: tomato;
   padding: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .id-input {
