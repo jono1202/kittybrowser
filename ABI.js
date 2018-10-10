@@ -1,3 +1,7 @@
+// -----------------------
+// SCRIPT FOR FETCHING ABI
+// -----------------------
+
 const axios = require('axios')
 const fs = require('fs')
 
@@ -8,7 +12,7 @@ axios
       console.log('ABI fetch successful')
       
       fs.writeFile(
-        __dirname + '/contracts/KittyCoreABI.json', 
+        __dirname + '/src/contracts/KittyCoreABI.json', 
         response.data.result,
         err => { 
           if(err) { console.log('Unable to write to file', err) }
