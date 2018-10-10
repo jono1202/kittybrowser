@@ -23,3 +23,6 @@ yarn-error.log*
 jsconfig.json
 Session.vim
 .eslintrc.json
+
+# ABI
+/src/contracts/KittyCoreABI.json
