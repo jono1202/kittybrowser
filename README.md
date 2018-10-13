@@ -17,5 +17,6 @@ node ABI.js
 
 To run react app
 ```
+npm install
 npm run start
 ```
